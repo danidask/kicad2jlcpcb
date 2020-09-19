@@ -15,7 +15,7 @@ setup(
     python_requires='>=3.5',
     entry_points={
         "console_scripts": [
-            "kicad2jlcpcb = kicad2jlcpcb.kicad2jlcpcb:main",
+            "kicad2jlcpcb = kicad_tools.kicad_tools:main",
         ]
     }
 )

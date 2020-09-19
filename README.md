@@ -16,7 +16,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/danidask/kicad2jlcpcb">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -25,14 +25,12 @@
   <p align="center">
     Plugin for KiCad 5 that allows generate files for jlcpcb pcb manufacturing and assembly service
     <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/danidask/kicad2jlcpcb"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/danidask/kicad2jlcpcb/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/danidask/kicad2jlcpcb/issues">Request Feature</a>
   </p>
 </p>
 
@@ -56,11 +54,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`
+Plugin for KiCad 5 that allows generate files for jlcpcb pcb manufacturing and assembly service
 
 
 <!-- GETTING STARTED -->
@@ -68,25 +62,20 @@ Here's a blank template to get started:
 
 To get a local copy up and running follow these simple steps.
 
+
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
-```sh
-npm install npm@latest -g
-```
+* pyython3
+* pip
+
 
 ### Installation
 
-1. Clone the repo
 ```sh
-git clone https://github.com/github_username/repo_name.git
+pip install git+https://github.com/danidask/kicad2jlcpcb
 ```
-2. Install NPM packages
-```sh
-npm install
-```
-
+<em>NOTE: If you have multiple versions of python in your machine, use a specific version o pip, like pip3 or pip3.6</em>
 
 
 <!-- USAGE EXAMPLES -->
@@ -124,20 +113,15 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 
 
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo.svg?style=flat-square
-[contributors-url]: https://github.com/github_username/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo.svg?style=flat-square
-[forks-url]: https://github.com/github_username/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo.svg?style=flat-square
-[stars-url]: https://github.com/github_username/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo.svg?style=flat-square
-[issues-url]: https://github.com/github_username/repo/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo.svg?style=flat-square
-[license-url]: https://github.com/github_username/repo/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/github_username
-[product-screenshot]: images/screenshot.png
+[contributors-shield]: https://img.shields.io/github/contributors/danidask/repo.svg?style=flat-square
+[contributors-url]: https://github.com/danidask/repo/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/danidask/repo.svg?style=flat-square
+[forks-url]: https://github.com/danidask/repo/network/members
+[stars-shield]: https://img.shields.io/github/stars/danidask/repo.svg?style=flat-square
+[stars-url]: https://github.com/danidask/repo/stargazers
+[issues-shield]: https://img.shields.io/github/issues/danidask/repo.svg?style=flat-square
+[issues-url]: https://github.com/danidask/repo/issues
+[license-shield]: https://img.shields.io/github/license/danidask/repo.svg?style=flat-square
+[license-url]: https://github.com/danidask/repo/blob/master/LICENSE.txt
