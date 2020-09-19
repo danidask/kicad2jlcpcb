@@ -15,12 +15,13 @@ def get_pos_files(original_pos_path):
     return pos_files
 
 
-def convert_pos(original_pos_path, output_path):
-    pos_files = get_pos_files(original_pos_path)
+def convert_pos(root_path, pos_folder, output_path):
+    pos_files_path = os.path.join(root_path, pos_folder)
+    pos_files = get_pos_files(pos_files_path)
     if not pos_files:
         return False
     for original_pos_file in pos_files:
-        original_pos_abs_path = os.path.join(original_pos_path, original_pos_file)
+        original_pos_abs_path = os.path.join(pos_files_path, original_pos_file)
         new_pos_file = original_pos_file[:-4] + "-jlcpcb.csv"
         new_pos_abs_path = os.path.join(output_path, new_pos_file)
         with open(original_pos_abs_path, 'r') as input_file, open(new_pos_abs_path, 'w') as output_file:
@@ -36,7 +37,3 @@ def convert_pos(original_pos_path, output_path):
             if index < 2:  # only header, delete
                 os.remove(new_pos_abs_path)
     return True
-
-
-if __name__ == '__main__':
-    convert_pos("/home/dani/github/SuperPower/PCB_Raspberry_Pi", ".")

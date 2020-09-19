@@ -17,6 +17,7 @@ def main():
     parser = argparse.ArgumentParser(description='Generates BOM and CPL suitable for JLCPCB Assembly Service')
     parser.add_argument('xml_path', type=os.path.abspath, help='Path of xml file (%I from kicad)')
     parser.add_argument('-j', '--json', action='store_true', help='Saves json file (for debug)')
+    parser.add_argument('-p', '--pos_folder', type=str, default='.', help='Relative path of pos files (default: root)')
 
     # Check if required aruments exist
     if len(sys.argv) == 1:
@@ -40,7 +41,7 @@ def main():
             json.dump(bom, f, indent=4)
     asam_n, dnp_n, exclude_n = generate_jlcpcb_bom(bom, output_path, project_name)
     print("{} Assambley parts, {} DNP parts, {} Excluded parts".format(asam_n, dnp_n, exclude_n))
-    status = convert_pos(project_path, output_path)
+    status = convert_pos(project_path, args.pos_folder, output_path)
     if not status:
         print("ERROR no pos files found in {}".format(project_path))
         print("See README.md to find out how to generate them or look in another path")
