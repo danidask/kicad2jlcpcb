@@ -5,8 +5,8 @@ import csv
 
 class Corrector:
     def __init__(self, root_path):
-        self.global_rules = self.load_global_rules(os.path.join(os.path.dirname(__file__), "cpl_rotations.csv"))
-        self.local_rules = self.load_local_rules(root_path)
+        self.global_rules = self._load_global_rules(os.path.join(os.path.dirname(__file__), "cpl_rotations.csv"))
+        self.local_rules = self._load_local_rules(root_path)
 
     def fix_rotation(self, rotation, footprint):
         # first check if in local rules (must match)
@@ -14,17 +14,17 @@ class Corrector:
             if footprint == pattern:
                 print("INFO Footprint {} matched {} (local rules). Applying {} deg correction"
                       .format(footprint, pattern, correction))
-                return self.apply_correction(rotation, correction)
+                return self._apply_correction(rotation, correction)
         # if not, check global rules (regex)
         for pattern, correction in self.global_rules.items():
             if pattern.match(footprint):
                 print("INFO Footprint {} matched {} (global rules). Applying {} deg correction"
                       .format(footprint, pattern.pattern, correction))
-                return self.apply_correction(rotation, correction)
+                return self._apply_correction(rotation, correction)
         return rotation
 
     @staticmethod
-    def load_global_rules(rotations_file):
+    def _load_global_rules(rotations_file):
         """ Return a Dict with all the rotations from global file"""
         rotations = {}
         with open(rotations_file) as csvfile:
@@ -36,7 +36,7 @@ class Corrector:
         return rotations
 
     @staticmethod
-    def load_local_rules(root_path):
+    def _load_local_rules(root_path):
         """ Return a Dict with all the rotations from local file"""
         rotations = {}
         local_file_path = os.path.join(root_path, "cpl_rotations.csv")
@@ -51,12 +51,18 @@ class Corrector:
                     except IndexError:
                         pass  # can be a blank line
         except FileNotFoundError:
-            print("WARNING local 'cpl_rotations.csv' file not found. Using only global rules")
+            print("WARNING local 'cpl_rotations.csv' file not found. Creating new one...")
+            Corrector._create_local_rules(local_file_path)
         return rotations
 
     @staticmethod
-    def apply_correction(rotation, correction):
+    def _apply_correction(rotation, correction):
         return "{0:.6f}".format((float(rotation) + correction) % 360)
+
+    @staticmethod
+    def _create_local_rules(local_rules_path):
+        with open(local_rules_path, 'w') as f:
+            f.write('"Footprint pattern","Correction"\r\n')
 
 
 if __name__ == "__main__":

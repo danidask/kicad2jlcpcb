@@ -16,7 +16,7 @@ def get_pos_files(original_pos_path):
     return pos_files
 
 
-def convert_pos(root_path, pos_folder, output_path):
+def convert_pos(root_path, pos_folder, output_path, skip_rotations_correction=False):
     corrector = Corrector(root_path)  # will get the rotation rules for apply later
     pos_files_path = os.path.join(root_path, pos_folder)
     pos_files = get_pos_files(pos_files_path)
@@ -35,10 +35,10 @@ def convert_pos(root_path, pos_folder, output_path):
                 index += 1
                 if index == 1:  # header ['Ref', 'Val', 'Package', 'PosX', 'PosY', 'Rot', 'Side']
                     continue
-                # fix rotation
                 rotation = row[6]
                 footprint = row[2]
-                rotation = corrector.fix_rotation(rotation, footprint)
+                if not skip_rotations_correction:
+                    rotation = corrector.fix_rotation(rotation, footprint)
                 csv_writer.writerow([row[0], row[3], row[4], rotation, row[5]])
         if index < 2:  # only header, delete
             os.remove(new_pos_abs_path)
