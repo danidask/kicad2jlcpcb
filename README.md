@@ -29,10 +29,8 @@
 
 
 <!-- TABLE OF CONTENTS -->
-## Table of Contents
+<h3>Table of Contents</h3>
 
-- [Table of Contents](#table-of-contents)
-- [About The Project](#about-the-project)
 - [How to install](#how-to-install)
   - [Prerequisites](#prerequisites)
   - [Installation or upgrade](#installation-or-upgrade)
@@ -40,17 +38,13 @@
   - [Convention](#convention)
   - [How to add custom fields](#how-to-add-custom-fields)
   - [How to generate the fabrication files](#how-to-generate-the-fabrication-files)
+    - [POS File](#pos-file)
+    - [BOM File](#bom-file)
   - [Example output](#example-output)
 - [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
 
-
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-Plugin for KiCad 5 that allows generate files for jlcpcb pcb manufacturing and assembly service
 
 
 ## How to install
@@ -94,7 +88,18 @@ To add this custom fields in kicad 5.1:
 
 ### How to generate the fabrication files
 
-schema > tools > generate bill of materials
+#### POS File
+
+The .pos file (footprint position) must be the first file to generate. From Pcbnew (layout view) File -> Fabrication Outputs -> pos file
+options: CSV format, mm unit, and "single file for board"
+Leave "Output directory" blank to generate the file in the project root.
+"Generate position file" and "close"
+This have a generic format and will be converted to the rigth format in the next step
+
+
+#### BOM File
+
+Eeschema > tools > generate bill of materials
 <img src="images/screenshot_01.png" alt="screenshot">
 
 write this in "command line" field, and then click "generate"

@@ -3,6 +3,7 @@ import sys
 import argparse
 import json
 from .export_bom import extract_bom_from_xml, generate_jlcpcb_bom
+from .export_pos import convert_pos
 
 
 def create_folder_if_not_exist(folder):
@@ -27,7 +28,7 @@ def main():
 
     # TODO output file as optional argument to override this
     project_path = os.path.dirname(os.path.abspath(args.xml_path))
-    project_name = os.path.split(project_path)[-1]
+    project_name = os.path.split(project_path)[-1]  # not realy but we'll use folder name as project name
     fabrication_folder = "jlcpcb_fab"
 
     output_path = os.path.join(project_path, fabrication_folder)
@@ -40,6 +41,10 @@ def main():
     asam_n, dnp_n, exclude_n = generate_jlcpcb_bom(bom, output_path, project_name)
     print("{} Assambley parts, {} DNP parts, {} Excluded parts".format(asam_n, dnp_n, exclude_n))
     print("Files generated in {}".format(fabrication_folder))
+    status = convert_pos(project_path, output_path)
+    if not status:
+        print("ERROR not pos files found in {}".format(project_path))
+        print("Look at README.md to find out how to generate them or look on another path")
 
 
 if __name__ == '__main__':

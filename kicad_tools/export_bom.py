@@ -30,7 +30,7 @@ def extract_bom_from_xml(file_path):
                 part_number = field_value
             elif field_name.lower() == "keys":
                 keys = field_value.split(',')
-        keys = [x.upper() for x in keys]  # lowercase all keys
+        keys = [x.strip().upper() for x in keys if x.strip()]  # lowercase all keys, remove remove blanks and empties
         component = {
             "ref": ref,
             "value": value,
