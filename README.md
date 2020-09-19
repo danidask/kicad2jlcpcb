@@ -40,7 +40,7 @@
   - [How to generate the fabrication files](#how-to-generate-the-fabrication-files)
     - [POS File](#pos-file)
     - [BOM File](#bom-file)
-    - [More options](#more-options)
+    - [Options](#options)
   - [Example output](#example-output)
 - [Contributing](#contributing)
 - [License](#license)
@@ -48,9 +48,9 @@
 
 
 
-## How to install
+# How to install
 
-### Prerequisites
+## Prerequisites
 
 kicad2jlcpcb is a python module. In order to install it you'll need:
 * python version 3.5 or above
@@ -60,7 +60,7 @@ TODO instructions of how to install these in each operating system
 
 
 
-### Installation or upgrade
+## Installation or upgrade
 
 ```sh
 pip install git+https://github.com/danidask/kicad2jlcpcb --upgrade
@@ -69,13 +69,13 @@ pip install git+https://github.com/danidask/kicad2jlcpcb --upgrade
 
 
 
-## How to use
+# How to use
 
   This plugin will read custom fields in the parts, in order to know the part number, and if the fab house will place this component, or it'll be placed after. To acomplish this, follow the next convention:
 
 
 
-### Convention
+## Convention
 
 - Each component can have a custom field named "PartNumber" with the part number
 - The components can have a custom field named "Keys" with one or several special words, separeted by commas:
@@ -84,7 +84,7 @@ pip install git+https://github.com/danidask/kicad2jlcpcb --upgrade
 
 
 
-### How to add custom fields
+## How to add custom fields
 
 To add this custom fields in kicad 5.1:
 - Select the component (left click)
@@ -93,9 +93,9 @@ To add this custom fields in kicad 5.1:
 
 
 
-### How to generate the fabrication files
+## How to generate the fabrication files
 
-#### POS File
+### POS File
 
 The .pos file (footprint position) must be the first file to generate. From Pcbnew (layout view) File -> Fabrication Outputs -> pos file
 <br />options: CSV format, mm unit, and "single file for board"
@@ -106,7 +106,7 @@ The .pos file (footprint position) must be the first file to generate. From Pcbn
 
 
 
-#### BOM File
+### BOM File
 
 Eeschema > tools > generate bill of materials
 <img src="images/screenshot_01.png" alt="screenshot">
@@ -120,19 +120,28 @@ Kicad will generate a xml file with all the parts and pass it to the script as %
 
 
 
-#### More options
+### Options
+
+
+Some KiCad footprints have different canonical orientations than jlcpcb. The script will fix this orientations base on a [rule table](https://github.com/danidask/kicad2jlcpcb/blob/master/kicad_tools/cpl_rotations.csv).
+
+You can override this behiveour by creating new rules in a local file `cpl_rotations.csv` in the project directory (the first time you run the script this file will be created). 
+
+Add the footprint full name (not regex like global rules) and the correction orientation (positive is clockwise)
+
+You can also disable the rotations correction using the argument -s when calling the script
 
 Open a terminal window and type `kicad2jlcpcb -h` to find out more about the available optional arguments
 
 
 
-### Example output
+## Example output
 
 The files generated will have the format you can see in [examples](https://github.com/danidask/kicad2jlcpcb/tree/master/examples)
 
 
 
-## Contributing
+# Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -144,13 +153,13 @@ Contributions are what make the open source community such an amazing place to b
 
 
 
-## License
+# License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
 
 
-## Acknowledgements
+# Acknowledgements
 
 * [CPL rotation correction based of the work of Matthew Lai](https://github.com/matthewlai/JLCKicadTools)
 
