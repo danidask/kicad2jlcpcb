@@ -1,0 +1,3 @@
+This is a debug file to check the excluded parts
+- H1	MountingHole
+- H2	MountingHole

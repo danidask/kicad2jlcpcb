@@ -131,6 +131,9 @@ dmypy.json
 #Pycharm
 .idea/
 
+#Visual Studio Code
+.vscode/
+
 # Other files
 _notes.txt
 _temp.py
