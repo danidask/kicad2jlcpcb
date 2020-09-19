@@ -9,19 +9,11 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 
-
-<!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/danidask/kicad2jlcpcb">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-  <h3 align="center">YOUR_TITLE</h3>
-
+  <h3 align="center">kicad2jlcpcb</h3>
   <p align="center">
     Plugin for KiCad 5 that allows generate files for jlcpcb pcb manufacturing and assembly service
     <br />
@@ -43,7 +35,7 @@
 - [About The Project](#about-the-project)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
+  - [Installation or upgrade](#installation-or-upgrade)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
@@ -65,25 +57,31 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* pyython3
+kicad2jlcpcb is a python script, you in order to install it you'll need:
+* python version 3.5 or above
 * pip
 
+TODO instructions of how to install these in each operating system
 
-### Installation
+### Installation or upgrade
 
 ```sh
-pip install git+https://github.com/danidask/kicad2jlcpcb
+pip install git+https://github.com/danidask/kicad2jlcpcb --upgrade
 ```
-<em>NOTE: If you have multiple versions of python in your machine, use a specific version o pip, like pip3 or pip3.6</em>
+<em>NOTE: If you have multiple versions of python in your machine, use a specific pip version, like pip3 or pip3.6</em>
 
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+schema > tools > generate bill of materials
+<img src="images/screenshot_01.png" alt="screenshot">
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+write this in "command line" field, and then "generate"
+```sh
+kicad2jlcpcb %I
+```
+<img src="images/screenshot_02.png" alt="screenshot">
 
 
 
