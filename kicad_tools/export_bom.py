@@ -1,8 +1,13 @@
 from xml.dom import minidom
 import csv
 import os
+import logging
 
-PARTNUMBER_FIELD_NAMES = ["partnumber", "part_number", "partn", "part_n"]  # here alwais lowercase
+
+logger = logging.getLogger(__name__)
+
+
+PARTNUMBER_VALID_FIELD_NAMES = ["partnumber", "part_number", "partn", "part_n"]  # here alwais lowercase
 
 
 def extract_bom_from_xml(file_path):
@@ -25,8 +30,7 @@ def extract_bom_from_xml(file_path):
         for field in fields:
             field_name = field.attributes['name'].value
             field_value = field.firstChild.data
-            # print(t)
-            if field_name.lower() in PARTNUMBER_FIELD_NAMES:
+            if field_name.lower() in PARTNUMBER_VALID_FIELD_NAMES:
                 part_number = field_value
             elif field_name.lower() == "keys":
                 keys = field_value.split(',')
@@ -38,7 +42,6 @@ def extract_bom_from_xml(file_path):
             "part_number": part_number,
             "keys": keys,
         }
-        # print(component)
         bom.append(component)
     return bom
 
@@ -64,10 +67,16 @@ def generate_jlcpcb_bom(bom, output_path, project_name):
                 dnp_n += 1
     # exclude components (for debug)
     exclude_n = 0
+    """
     with open(os.path.join(output_path, "excluded_parts.txt"), 'w') as file:
         file.write("This is a debug file to check the excluded parts\n")
         for line in bom:
             if 'EXCLUDE' in line['keys']:
                 file.write("- {}\t{}\n".format(line['ref'], line['value']))
                 exclude_n += 1
+    """
+    for line in bom:
+        if 'EXCLUDE' in line['keys']:
+            logger.info("Component excluded from BOM: {} ({})\n".format(line['ref'], line['value']))
+            exclude_n += 1
     return asam_n, dnp_n, exclude_n

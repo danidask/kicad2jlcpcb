@@ -1,6 +1,10 @@
 import os
 import re
 import csv
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class Corrector:
@@ -12,13 +16,13 @@ class Corrector:
         # first check if in local rules (must match)
         for pattern, correction in self.local_rules.items():
             if footprint == pattern:
-                print("INFO Footprint {} matched {} (local rules). Applying {} deg correction"
+                logger.info("Footprint {} matched {} (local rules). Applying {} deg correction"
                       .format(footprint, pattern, correction))
                 return self._apply_correction(rotation, correction)
         # if not, check global rules (regex)
         for pattern, correction in self.global_rules.items():
             if pattern.match(footprint):
-                print("INFO Footprint {} matched {} (global rules). Applying {} deg correction"
+                logger.info("Footprint {} matched {} (global rules). Applying {} deg correction"
                       .format(footprint, pattern.pattern, correction))
                 return self._apply_correction(rotation, correction)
         return rotation
@@ -51,7 +55,7 @@ class Corrector:
                     except IndexError:
                         pass  # can be a blank line
         except FileNotFoundError:
-            print("WARNING local 'cpl_rotations.csv' file not found. Creating new one...")
+            logger.warning("local 'cpl_rotations.csv' file not found. Creating new one...")
             Corrector._create_local_rules(local_file_path)
         return rotations
 
