@@ -36,7 +36,10 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation or upgrade](#installation-or-upgrade)
+  - [Add the plugin to Kicad](#add-the-plugin-to-kicad)
 - [Usage](#usage)
+  - [Convention](#convention)
+  - [How to add custom fields](#how-to-add-custom-fields)
 - [Contributing](#contributing)
 - [License](#license)
 - [Acknowledgements](#acknowledgements)
@@ -71,8 +74,9 @@ pip install git+https://github.com/danidask/kicad2jlcpcb --upgrade
 <em>NOTE: If you have multiple versions of python in your machine, use a specific pip version, like pip3 or pip3.6</em>
 
 
-<!-- USAGE EXAMPLES -->
-## Usage
+### Add the plugin to Kicad
+
+
 
 schema > tools > generate bill of materials
 <img src="images/screenshot_01.png" alt="screenshot">
@@ -82,6 +86,26 @@ write this in "command line" field, and then "generate"
 kicad2jlcpcb %I
 ```
 <img src="images/screenshot_02.png" alt="screenshot">
+Kicad will generate a xml file with all the parts and pass it to the script as %I argument. The script will parse the xml file and generate the fabrication files with the necessary format.
+
+
+<!-- USAGE EXAMPLES -->
+## Usage
+  This plugin will read custom fields in the parts, in order to know the part number, and if the fab house will place this component, or it ill be placed later by us. To acomplish this follow the next convention:
+
+### Convention
+
+- Each component can have a custom field named "PartNumber" with the part number
+- The components can have a custom field named "Keys" with one or several special words, separeted by commas:
+  - DNP  (Do Not Place) This component will not be sent for assambley and will be included in a separated file
+  - EXCLUDE This component will not apear in any of the BOM files (ej mounting holes, logos...)
+
+### How to add custom fields
+
+To add this custom fields in kicad 5.1:
+- Select the component (left click)
+- Press "E" to open symbol properties
+- Add Field (plus sign)
 
 
 
