@@ -15,17 +15,12 @@ def create_folder_if_not_exist(folder):
 
 def main():
     parser = argparse.ArgumentParser(description='Generates BOM and CPL suitable for JLCPCB Assembly Service')
-    parser.add_argument('xml_path', type=os.path.abspath, help='Path of xml file (%I from kicad)')
+    parser.add_argument('xml_path', type=os.path.abspath, help="Path of xml file (%%I from kicad)")
     parser.add_argument('-j', '--json', action='store_true', help='Saves json file (for debug)')
-    parser.add_argument('-p', '--pos_folder', type=str, default='.', help='Relative path of pos files (default: root)')
-
-    # Check if required aruments exist
-    if len(sys.argv) == 1:
-        parser.print_help()
-        sys.exit()
+    parser.add_argument('-p', '--pos_folder', metavar='folder', type=str, default='.', help='Relative path of pos files (default: project root)')
 
     # Parse arguments
-    args = parser.parse_args(sys.argv[1:])
+    args = parser.parse_args()
 
     # TODO output file as optional argument to override this
     project_path = os.path.dirname(os.path.abspath(args.xml_path))

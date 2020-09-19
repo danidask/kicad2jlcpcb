@@ -40,6 +40,7 @@
   - [How to generate the fabrication files](#how-to-generate-the-fabrication-files)
     - [POS File](#pos-file)
     - [BOM File](#bom-file)
+    - [More options](#more-options)
   - [Example output](#example-output)
 - [Contributing](#contributing)
 - [License](#license)
@@ -57,6 +58,8 @@ kicad2jlcpcb is a python module. In order to install it you'll need:
 
 TODO instructions of how to install these in each operating system
 
+
+
 ### Installation or upgrade
 
 ```sh
@@ -65,9 +68,11 @@ pip install git+https://github.com/danidask/kicad2jlcpcb --upgrade
 <em>NOTE: If you have multiple versions of python in your machine, use a specific pip version, like pip3 or pip3.6</em>
 
 
+
 ## How to use
 
   This plugin will read custom fields in the parts, in order to know the part number, and if the fab house will place this component, or it'll be placed after. To acomplish this, follow the next convention:
+
 
 
 ### Convention
@@ -78,6 +83,7 @@ pip install git+https://github.com/danidask/kicad2jlcpcb --upgrade
   - EXCLUDE This component will not apear in any of the BOM files (ej mounting holes, logos...)
 
 
+
 ### How to add custom fields
 
 To add this custom fields in kicad 5.1:
@@ -86,15 +92,18 @@ To add this custom fields in kicad 5.1:
 - Add Field (plus sign)
 
 
+
 ### How to generate the fabrication files
 
 #### POS File
 
 The .pos file (footprint position) must be the first file to generate. From Pcbnew (layout view) File -> Fabrication Outputs -> pos file
-options: CSV format, mm unit, and "single file for board"
-Leave "Output directory" blank to generate the file in the project root.
-"Generate position file" and "close"
-This have a generic format and will be converted to the rigth format in the next step
+<br />options: CSV format, mm unit, and "single file for board"
+<br />Leave "Output directory" blank to generate the file in the project root*
+<br />"Generate position file" and "close"
+<br />This have a generic format and will be converted to the rigth format in the next step
+<br /><em>NOTE: If you want to export to some other folder instead of root, you'll need to add the argument </em>`-p foldername`<em> to the script, si it'll be able to find the pos files</em>
+
 
 
 #### BOM File
@@ -110,9 +119,17 @@ kicad2jlcpcb %I
 Kicad will generate a xml file with all the parts and pass it to the script as %I argument. The script will parse the xml file and generate the fabrication files with the necessary format.
 
 
+
+#### More options
+
+Open a terminal window and type `kicad2jlcpcb -h` to find out more about the available optional arguments
+
+
+
 ### Example output
 
 The files generated will have the format you can see in [examples](https://github.com/danidask/kicad2jlcpcb/tree/master/examples)
+
 
 
 ## Contributing
@@ -126,9 +143,11 @@ Contributions are what make the open source community such an amazing place to b
 5. Open a Pull Request
 
 
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
+
 
 
 ## Acknowledgements
