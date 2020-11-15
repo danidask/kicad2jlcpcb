@@ -1,6 +1,6 @@
 from xml.dom import minidom
 import csv
-import os
+import os, sys
 import logging
 
 
@@ -49,13 +49,18 @@ def extract_bom_from_xml(file_path):
 def generate_jlcpcb_bom(bom, output_path, project_name):
     # Assembly file
     asam_n = 0
-    with open(os.path.join(output_path, project_name + "_BOM_Assembly.csv"), 'w', newline='') as csvfile:
-        csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
-        csvwriter.writerow(['Comment', 'Designator', 'Footprint', 'LCSC Part'])
-        for line in bom:
-            if 'DNP' not in line['keys'] and 'EXCLUDE' not in line['keys']:
-                csvwriter.writerow([line['value'], line['ref'], line['footprint'], line['part_number']])
-                asam_n += 1
+    csv_file = os.path.join(output_path, project_name + "_BOM_Assembly.csv")
+    try:
+        with open(csv_file, 'w', newline='') as csvfile:
+            csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+            csvwriter.writerow(['Comment', 'Designator', 'Footprint', 'LCSC Part'])
+            for line in bom:
+                if 'DNP' not in line['keys'] and 'EXCLUDE' not in line['keys']:
+                    csvwriter.writerow([line['value'], line['ref'], line['footprint'], line['part_number']])
+                    asam_n += 1
+    except PermissionError:
+        logger.error("Couldn't open {}. Maybe its already open.".format(csv_file))
+        sys.exit(1)
     # Remaining file (do not place components)
     dnp_n = 0
     with open(os.path.join(output_path, project_name + "_BOM_Remaining.csv"), 'w', newline='') as csvfile:

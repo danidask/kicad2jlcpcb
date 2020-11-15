@@ -27,7 +27,7 @@ def convert_pos(root_path, pos_folder, output_path, skip_rotations_correction=Fa
         new_pos_file = original_pos_file[:-4] + "-jlcpcb.csv"
         new_pos_abs_path = os.path.join(output_path, new_pos_file)
         index = 0
-        with open(original_pos_abs_path, 'r') as input_file, open(new_pos_abs_path, 'w') as output_file:
+        with open(original_pos_abs_path, 'r') as input_file, open(new_pos_abs_path, 'w', newline='') as output_file:
             csv_reader = csv.reader(input_file, delimiter=',')
             csv_writer = csv.writer(output_file, delimiter=',', quoting=csv.QUOTE_MINIMAL)
             csv_writer.writerow(['Designator', 'Mid X', 'Mid Y', 'Layer', 'Rotation'])
@@ -35,11 +35,12 @@ def convert_pos(root_path, pos_folder, output_path, skip_rotations_correction=Fa
                 index += 1
                 if index == 1:  # header ['Ref', 'Val', 'Package', 'PosX', 'PosY', 'Rot', 'Side']
                     continue
-                rotation = row[6]
+                rotation = row[5]
                 footprint = row[2]
                 if not skip_rotations_correction:
                     rotation = corrector.fix_rotation(rotation, footprint)
-                csv_writer.writerow([row[0], row[3], row[4], rotation, row[5]])
+                csv_writer.writerow([row[0], row[3], row[4], row[6], rotation])
+
         if index < 2:  # only header, delete
             os.remove(new_pos_abs_path)
     return True
