@@ -54,9 +54,10 @@ def main():
             json.dump(bom, f, indent=4)
     asam_n, dnp_n, exclude_n = generate_jlcpcb_bom(bom, output_path, project_name)
     logger.info("{} Assambley parts, {} DNP parts, {} Excluded parts".format(asam_n, dnp_n, exclude_n))
-    status = convert_pos(project_path, args.pos_folder, output_path, skip_rotations_correction=args.skip_rotations)
+    pos_files_path = os.path.join(project_path, args.pos_folder)
+    status = convert_pos(project_path, pos_files_path, output_path, skip_rotations_correction=args.skip_rotations)
     if not status:
-        logger.error("No pos files found in {}.\nSee README.md to find out how to generate them or look in another path".format(project_path))
+        logger.error("No pos files found in {}.\nSee README.md to find out how to generate them or look in another path".format(pos_files_path))
     else:
         logger.info("Files generated in {}".format(output_path))
 

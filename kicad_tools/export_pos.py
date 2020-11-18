@@ -16,9 +16,8 @@ def get_pos_files(original_pos_path):
     return pos_files
 
 
-def convert_pos(root_path, pos_folder, output_path, skip_rotations_correction=False):
+def convert_pos(root_path, pos_files_path, output_path, skip_rotations_correction=False):
     corrector = Corrector(root_path)  # will get the rotation rules for apply later
-    pos_files_path = os.path.join(root_path, pos_folder)
     pos_files = get_pos_files(pos_files_path)
     if not pos_files:
         return False
@@ -48,4 +47,4 @@ def convert_pos(root_path, pos_folder, output_path, skip_rotations_correction=Fa
 
 
 if __name__ == "__main__":
-    convert_pos("/home/dani/github/SuperPower/PCB_Raspberry_Pi", "tmp", "")
+    convert_pos("/home/dani/github/SuperPower/PCB_Raspberry_Pi", "/home/dani/github/SuperPower/PCB_Raspberry_Pi/tmp", "")

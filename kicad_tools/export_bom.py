@@ -12,7 +12,11 @@ PARTNUMBER_VALID_FIELD_NAMES = ["partnumber", "part_number", "partn", "part_n"] 
 
 def extract_bom_from_xml(file_path):
     bom = []
-    xmldoc = minidom.parse(file_path)
+    try:
+        xmldoc = minidom.parse(file_path)
+    except FileNotFoundError:
+        logger.error("Couldn't open {}.".format(file_path))
+        sys.exit(1)
     itemlist = xmldoc.getElementsByTagName('comp')
     for item in itemlist:
         ref = item.attributes['ref'].value  # KeyError
