@@ -31,7 +31,7 @@ def extract_bom_from_xml(file_path):
             field_name = field.attributes['name'].value
             field_value = field.firstChild.data
             if field_name.lower() in PARTNUMBER_VALID_FIELD_NAMES:
-                part_number = field_value
+                part_number = field_value.strip()
             elif field_name.lower() == "keys":
                 keys = field_value.split(',')
         keys = [x.strip().upper() for x in keys if x.strip()]  # lowercase all keys, remove remove blanks and empties

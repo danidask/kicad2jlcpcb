@@ -24,7 +24,8 @@ def convert_pos(root_path, pos_folder, output_path, skip_rotations_correction=Fa
         return False
     for original_pos_file in pos_files:
         original_pos_abs_path = os.path.join(pos_files_path, original_pos_file)
-        new_pos_file = original_pos_file[:-4] + "-jlcpcb.csv"
+        project_name = os.path.split(root_path)[-1]  # not realy but we'll use folder name as project name
+        new_pos_file = project_name + "_POS.csv"
         new_pos_abs_path = os.path.join(output_path, new_pos_file)
         index = 0
         with open(original_pos_abs_path, 'r') as input_file, open(new_pos_abs_path, 'w', newline='') as output_file:
