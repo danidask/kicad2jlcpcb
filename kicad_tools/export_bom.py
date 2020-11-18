@@ -86,6 +86,6 @@ def generate_jlcpcb_bom(bom, output_path, project_name):
     """
     for line in bom:
         if 'EXCLUDE' in line['keys']:
-            logger.info("Component excluded from BOM: {} ({})".format(line['ref'], line['value']))
+            logger.debug("Component excluded from BOM: {} ({})".format(line['ref'], line['value']))
             exclude_n += 1
     return asam_n, dnp_n, exclude_n

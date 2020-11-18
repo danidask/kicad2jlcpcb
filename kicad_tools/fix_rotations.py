@@ -15,14 +15,14 @@ class Corrector:
     def fix_rotation(self, rotation, footprint):
         # first check if in local rules (must match)
         for pattern, correction in self.local_rules.items():
-            if footprint == pattern:
-                logger.info("Footprint {} matched {} (local rules). Applying {} deg correction"
+            if footprint.strip() == pattern.strip():
+                logger.debug("Footprint {} matched {} (local rules). Applying {} deg correction"
                       .format(footprint, pattern, correction))
                 return self._apply_correction(rotation, correction)
         # if not, check global rules (regex)
         for pattern, correction in self.global_rules.items():
             if pattern.match(footprint):
-                logger.info("Footprint {} matched {} (global rules). Applying {} deg correction"
+                logger.debug("Footprint {} matched {} (global rules). Applying {} deg correction"
                       .format(footprint, pattern.pattern, correction))
                 return self._apply_correction(rotation, correction)
         return rotation

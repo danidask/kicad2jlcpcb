@@ -37,6 +37,7 @@ def main():
     parser.add_argument('-f', '--output_folder', metavar='folder', type=str, default='jlcpcb_fab', help='Output path (relative to project) (default: jlcpcb_fab)')
     parser.add_argument('-s', '--skip_rotations', action='store_true', help='Skips rotations correction')
     parser.add_argument('-j', '--json', action='store_true', help='Saves json file (for debug)')
+    parser.add_argument('-v', '--verbose', action='store_true')
 
     # Parse arguments
     args = parser.parse_args()
@@ -44,9 +45,11 @@ def main():
     project_path = os.path.dirname(os.path.abspath(args.xml_path))
     project_name = os.path.split(project_path)[-1]  # not realy but we'll use folder name as project name
     output_path = os.path.join(project_path, args.output_folder)
-    create_folder_if_not_exist(output_path)
 
+    create_folder_if_not_exist(output_path)
     logger_add_filehandler(output_path)
+    if args.verbose:
+        logger.setLevel('DEBUG')
 
     bom = extract_bom_from_xml(args.xml_path)
     if args.json:
