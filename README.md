@@ -113,7 +113,7 @@ Eeschema > tools > generate bill of materials
 
 write this in "command line" field, and then click "generate"
 ```sh
-kicad2jlcpcb %I
+kicad2jlcpcb "%I"
 ```
 <img src="images/screenshot_02.png" alt="screenshot">
 Kicad will generate a xml file with all the parts and pass it to the script as %I argument. The script will parse the xml file and generate the fabrication files with the necessary format.

@@ -7,7 +7,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-PARTNUMBER_VALID_FIELD_NAMES = ["partnumber", "part_number", "partn", "part_n"]  # here alwais lowercase
+PARTNUMBER_VALID_FIELD_NAMES = ["partnumber", "part_number", "partn", "part_n", "pn"]  # here alwais lowercase
 
 
 def extract_bom_from_xml(file_path):
