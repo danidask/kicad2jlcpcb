@@ -92,7 +92,6 @@ def generate_jlcpcb_bom(bom, output_path, project_name):
 
 def find_partnumber_index(part_number, bom):
     for index, elem in enumerate(bom):
-        print(f"{index=} {elem=}")
         if elem["part_number"] == part_number:
             return index
     return -1
