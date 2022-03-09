@@ -21,15 +21,15 @@ def convert_pos(root_path, pos_files_path, output_path, skip_rotations_correctio
     pos_files = get_pos_files(pos_files_path)
     if not pos_files:
         return False
+    project_name = os.path.split(root_path)[-1]  # not realy but we'll use folder name as project name
+    new_pos_file = project_name + "_CPL.csv"
+    new_pos_abs_path = os.path.join(output_path, new_pos_file)
     if os.path.exists(new_pos_abs_path):
         os.remove(new_pos_abs_path)
     for original_pos_file in pos_files:
         original_pos_abs_path = os.path.join(pos_files_path, original_pos_file)
-        project_name = os.path.split(root_path)[-1]  # not realy but we'll use folder name as project name
-        new_pos_file = project_name + "_CPL.csv"
-        new_pos_abs_path = os.path.join(output_path, new_pos_file)
         index = 0
-        with open(original_pos_abs_path, 'r') as input_file, open(new_pos_abs_path, 'a', newline='') as output_file:
+        with open(original_pos_abs_path, 'r', encoding='utf8') as input_file, open(new_pos_abs_path, 'a', newline='', encoding='utf8') as output_file:
             csv_reader = csv.reader(input_file, delimiter=',')
             csv_writer = csv.writer(output_file, delimiter=',', quoting=csv.QUOTE_MINIMAL)
             csv_writer.writerow(['Designator', 'Mid X', 'Mid Y', 'Layer', 'Rotation'])

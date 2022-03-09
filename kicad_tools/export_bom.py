@@ -47,15 +47,15 @@ def extract_bom_from_xml(file_path):
             "keys": keys,
         }
         bom.append(component)
-    return bom
-
+    bom = sorted(bom, key=lambda k:k['ref'])  # sorted by ref
+    return compact_bom(bom)
 
 def generate_jlcpcb_bom(bom, output_path, project_name):
     # Assembly file
     asam_n = 0
     csv_file = os.path.join(output_path, project_name + "_BOM_Assembly.csv")
     try:
-        with open(csv_file, 'w', newline='') as csvfile:
+        with open(csv_file, 'w', newline='', encoding='utf8') as csvfile:
             csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
             csvwriter.writerow(['Comment', 'Designator', 'Footprint', 'LCSC Part'])
             for line in bom:
@@ -67,7 +67,7 @@ def generate_jlcpcb_bom(bom, output_path, project_name):
         sys.exit(1)
     # Remaining file (do not place components)
     dnp_n = 0
-    with open(os.path.join(output_path, project_name + "_BOM_Remaining.csv"), 'w', newline='') as csvfile:
+    with open(os.path.join(output_path, project_name + "_BOM_Remaining.csv"), 'w', newline='', encoding='utf8') as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
         csvwriter.writerow(['Comment', 'Designator', 'Footprint', 'LCSC Part'])
         for line in bom:
@@ -77,7 +77,7 @@ def generate_jlcpcb_bom(bom, output_path, project_name):
     # exclude components (for debug)
     exclude_n = 0
     """
-    with open(os.path.join(output_path, "excluded_parts.txt"), 'w') as file:
+    with open(os.path.join(output_path, "excluded_parts.txt"), 'w', encoding='utf8') as file:
         file.write("This is a debug file to check the excluded parts\n")
         for line in bom:
             if 'EXCLUDE' in line['keys']:
@@ -89,3 +89,20 @@ def generate_jlcpcb_bom(bom, output_path, project_name):
             logger.debug("Component excluded from BOM: {} ({})".format(line['ref'], line['value']))
             exclude_n += 1
     return asam_n, dnp_n, exclude_n
+
+def find_partnumber_index(part_number, bom):
+    for index, elem in enumerate(bom):
+        print(f"{index=} {elem=}")
+        if elem["part_number"] == part_number:
+            return index
+    return -1
+
+def compact_bom(bom):
+    """ will condensate same component in one line """
+    compact_bom = []
+    for elem in bom:
+        if elem["part_number"] and find_partnumber_index(elem["part_number"], compact_bom) >= 0:
+            compact_bom[find_partnumber_index(elem["part_number"], compact_bom)]["ref"] += ", " + elem["ref"]
+        else:
+            compact_bom.append(elem)
+    return compact_bom

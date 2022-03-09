@@ -4,6 +4,7 @@ import argparse
 import json
 from .export_bom import extract_bom_from_xml, generate_jlcpcb_bom
 from .export_pos import convert_pos
+from .add_fields import add_fields
 import logging
 
 
@@ -37,6 +38,7 @@ def main():
     parser.add_argument('-f', '--output_folder', metavar='folder', type=str, default='jlcpcb_fab', help='Output path (relative to project) (default: jlcpcb_fab)')
     parser.add_argument('-s', '--skip_rotations', action='store_true', help='Skips rotations correction')
     parser.add_argument('-j', '--json', action='store_true', help='Saves json file (for debug)')
+    parser.add_argument('-i', '--init', action='store_true', help='Creates PartNumber and Keys fields in all parts')
     parser.add_argument('-v', '--verbose', action='store_true')
 
     # Parse arguments
@@ -50,6 +52,10 @@ def main():
     logger_add_filehandler(output_path)
     if args.verbose:
         logger.setLevel('DEBUG')
+    if args.init:
+        pass
+        # hay que sacar el directorio del proyecto y buscar todos los archivos de esquematico para aplicar add_fields a t0dos 
+        # add_fields(args.xml_path)
 
     bom = extract_bom_from_xml(args.xml_path)
     if args.json:

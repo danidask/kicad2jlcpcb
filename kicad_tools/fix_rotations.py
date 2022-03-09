@@ -31,7 +31,7 @@ class Corrector:
     def _load_global_rules(rotations_file):
         """ Return a Dict with all the rotations from global file"""
         rotations = {}
-        with open(rotations_file) as csvfile:
+        with open(rotations_file, 'r', encoding='utf8') as csvfile:
             reader = csv.reader(csvfile, delimiter=',')
             for index, row in enumerate(reader):
                 if index == 0:  # header
@@ -45,7 +45,7 @@ class Corrector:
         rotations = {}
         local_file_path = os.path.join(root_path, "cpl_rotations.csv")
         try:
-            with open(local_file_path) as csvfile:
+            with open(local_file_path, 'r', encoding='utf8') as csvfile:
                 reader = csv.reader(csvfile, delimiter=',')
                 for index, row in enumerate(reader):
                     if index == 0:  # header
@@ -65,7 +65,7 @@ class Corrector:
 
     @staticmethod
     def _create_local_rules(local_rules_path):
-        with open(local_rules_path, 'w') as f:
+        with open(local_rules_path, 'w', encoding='utf8') as f:
             f.write('"Footprint pattern","Correction"\r\n')
 
 
